@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Satış Stratejisi Projesi - Modern İş Çözümleri</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-particles"></div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">AI Stratejist</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Ana Sayfa</a>
+                <a href="#services" class="nav-link">Hizmetler</a>
+                <a href="#features" class="nav-link">Özellikler</a>
+                <a href="#contact" class="nav-link">İletişim</a>
+            </div>
+            <div class="nav-utilities">
+                <button class="btn-secondary-nav" onclick="showLogin()">Giriş Yap</button>
+                <button class="btn-primary-nav" onclick="showRegister()">Başlayın</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-eyebrow">• YAPAY ZEKA DESTEKLI •</div>
+                    <h1 class="hero-title">Satışlarınızı<br><span class="gradient-text">AI ile Güçlendirin</span></h1>
+                    <p class="hero-description">
+                        Ürün bilgilerinizi girin, yapay zeka tarafından oluşturulan veri temelli satış stratejileri alın. 
+                        Pazar analizi, hedef kitle segmentasyonu ve rekabetçi fiyatlandırma ile işinizi büyütün.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="showRegister()">
+                            <span>Ücretsiz Başlayın</span>
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        <button class="btn-play" onclick="showDemoVideo()">
+                            <div class="play-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                            <span>Demo İzleyin</span>
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">1+</span>
+                            <span class="stat-label">Aktif Kullanıcı</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">%40</span>
+                            <span class="stat-label">Satış Artışı</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">AI Desteği</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-container">
+                        <div class="tech-illustration">
+                            <img src="/static/images/yeni2.png" alt="AI Stratejisi Illustration" class="main-illustration">
+                            <div class="floating-elements">
+                                <div class="floating-element element-2">🎯</div>
+                                <div class="floating-element element-3">💰</div>
+                                <div class="floating-element element-4">🚀</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">• HİZMETLERİMİZ •</div>
+                <h2 class="section-title">AI Destekli İş Çözümleri</h2>
+                <p class="section-description">
+                    Yapay zeka teknolojileri ile işinizi geleceğe taşıyacak kapsamlı çözümler sunuyoruz
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 0-9-4-9-9s4-9 9-9 9 4 9 9"/>
+                            <path d="M21 21l-3.5-3.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Pazar Analizi</h3>
+                    <p class="service-description">
+                        Google Trends ve rakip analizi ile pazar durumunu derinlemesine anlayın. 
+                        Gerçek zamanlı verilerle stratejinizi optimize edin.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Hedef Kitle Analizi</h3>
+                    <p class="service-description">
+                        AI algoritmaları ile optimal müşteri segmentasyonu yapın. 
+                        Doğru kitleye, doğru mesajı, doğru zamanda ulaştırın.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Fiyat Optimizasyonu</h3>
+                    <p class="service-description">
+                        Rekabetçi fiyatlandırma stratejileri geliştirin. 
+                        Kar marjınızı artırırken müşteri memnuniyetini koruyun.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">İçerik Üretimi</h3>
+                    <p class="service-description">
+                        SEO uyumlu ürün açıklamaları ve pazarlama metinleri oluşturun. 
+                        AI ile profesyonel içerikler saniyeler içinde hazır.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Performans Analizi</h3>
+                    <p class="service-description">
+                        Satış performansınızı gerçek zamanlı takip edin. 
+                        Detaylı raporlar ve önerilerle stratejinizi sürekli geliştirin.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">CRM Entegrasyonu</h3>
+                    <p class="service-description">
+                        Mevcut CRM sisteminizle sorunsuz entegrasyon. 
+                        Müşteri ilişkilerinizi AI ile güçlendirin.
+                    </p>
+                    <a href="#" class="service-link">
+                        Daha Fazla
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🧠</span>
+                        <span class="logo-text">AI Stratejist</span>
+                    </div>
+                    <p class="footer-description">
+                        Yapay zeka destekli satış stratejileri ile işinizi geleceğe taşıyın.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Hizmetler</h4>
+                        <a href="#">Pazar Analizi</a>
+                        <a href="#">Hedef Kitle</a>
+                        <a href="#">Fiyat Optimizasyonu</a>
+                        <a href="#">İçerik Üretimi</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Şirket</h4>
+                        <a href="#">Hakkımızda</a>
+                        <a href="#">Kariyer</a>
+                        <a href="#">Blog</a>
+                        <a href="#">İletişim</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Destek</h4>
+                        <a href="#">Yardım Merkezi</a>
+                        <a href="#">Dokümantasyon</a>
+                        <a href="#">API</a>
+                        <a href="#">Durum</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI Stratejist. Tüm hakları saklıdır.</p>
+                <div class="footer-legal">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Giriş Yap</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="Kullanıcı Adı" required>
+                <input type="password" placeholder="Şifre" required>
+                <button type="submit">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Kayıt Ol</h2>
+            <form id="registerForm">
+                <input type="email" placeholder="E-posta" required>
+                <input type="text" placeholder="Kullanıcı Adı" required>
+                <input type="text" placeholder="Ad Soyad">
+                <input type="password" placeholder="Şifre" required>
+                <button type="submit">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html> 

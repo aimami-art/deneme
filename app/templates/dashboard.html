@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Satış Stratejisi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Semantic UI Teknolojik Design System */
+            --primary-blue: #2185d0;
+            --primary-blue-light: #54c8ff;
+            --primary-blue-dark: #1678c2;
+            --secondary-violet: #6435c9;
+            --secondary-violet-light: #a333c8;
+            --secondary-violet-dark: #5829bb;
+            --accent-teal: #00b5ad;
+            --accent-green: #21ba45;
+            
+            /* Teknolojik Neutral Colors */
+            --white: #ffffff;
+            --gray-light: #1e1e1e;
+            --gray-100: #2d3748;
+            --gray-200: #4a5568;
+            --gray-300: #718096;
+            --gray-400: #a0aec0;
+            --gray-500: #cbd5e0;
+            --gray-600: #e2e8f0;
+            --gray-700: #edf2f7;
+            --gray-800: #f7fafc;
+            --gray-900: #ffffff;
+            
+            /* Background Colors - Dark Tech Theme */
+            --bg-primary: #1a1a1a;
+            --bg-card: rgba(45, 55, 72, 0.9);
+            --bg-sidebar-active: rgba(33, 133, 208, 0.2);
+            --bg-hero-gradient: linear-gradient(135deg, #2185d0 0%, #6435c9 100%);
+            
+            /* Status Colors - Semantic UI */
+            --success: #21ba45;
+            --warning: #fbbd08;
+            --error: #db2828;
+            --info: #2185d0;
+            
+            /* Typography */
+            --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-headings: 'Inter', system-ui, sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Teknolojik Glow Shadows */
+            --shadow-sm: 0 1px 3px 0 rgba(33, 133, 208, 0.1);
+            --shadow-base: 0 1px 3px 0 rgba(33, 133, 208, 0.15), 0 1px 2px 0 rgba(33, 133, 208, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(33, 133, 208, 0.2), 0 2px 4px -1px rgba(33, 133, 208, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(33, 133, 208, 0.25), 0 4px 6px -2px rgba(33, 133, 208, 0.15);
+            --shadow-xl: 0 20px 25px -5px rgba(33, 133, 208, 0.3), 0 10px 10px -5px rgba(33, 133, 208, 0.2);
+            --shadow-card: 0 8px 32px rgba(33, 133, 208, 0.15);
+            
+            /* Glow Effects */
+            --glow-primary: 0 0 20px rgba(33, 133, 208, 0.4);
+            --glow-secondary: 0 0 15px rgba(100, 53, 201, 0.3);
+            --glow-accent: 0 0 15px rgba(0, 181, 173, 0.3);
+            
+            /* Teknolojik Accent Colors */
+            --tech-cyan: #00d4aa;
+            --tech-orange: #f2711c;
+            --tech-pink: #e03997;
+            --tech-yellow: #fbbd08;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Layout Container */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-md);
+            height: calc(100vh - 2rem);
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            border: 1px solid rgba(33, 133, 208, 0.3);
+            box-shadow: var(--shadow-card), var(--glow-primary);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .sidebar-logo h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            font-family: var(--font-headings);
+        }
+
+        .sidebar-nav {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(168, 85, 247, 0.05);
+            color: var(--primary-purple);
+        }
+
+        .nav-item.active {
+            background: var(--bg-sidebar-active);
+            color: var(--primary-purple);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: var(--spacing-lg);
+            right: var(--spacing-lg);
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-lg);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 320px;
+            padding: var(--spacing-lg);
+            flex: 1;
+            max-width: calc(100vw - 320px);
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: var(--bg-hero-gradient);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-xl);
+            color: white;
+            margin-bottom: var(--spacing-xl);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            font-family: var(--font-headings);
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+        }
+
+
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-family: var(--font-headings);
+        }
+
+        .card-description {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-purple-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--primary-purple);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: var(--primary-purple);
+        }
+
+        .btn-small {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            font-size: 0.75rem;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .products-list, .strategies-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: var(--spacing-xs);
+        }
+
+        .products-list::-webkit-scrollbar,
+        .strategies-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .products-list::-webkit-scrollbar-track,
+        .strategies-list::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+        }
+
+        .products-list::-webkit-scrollbar-thumb,
+        .strategies-list::-webkit-scrollbar-thumb {
+            background: var(--primary-purple);
+            border-radius: var(--radius-full);
+        }
+
+        .product-item, .strategy-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover, .strategy-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--primary-purple);
+            transform: translateX(4px);
+        }
+
+        .item-info h4 {
+            margin: 0 0 var(--spacing-xs) 0;
+            color: var(--gray-800);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .item-info p {
+            margin: 0;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--gray-500);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.7;
+        }
+
+        .empty-state p {
+            margin-bottom: var(--spacing-lg);
+            font-size: 1rem;
+        }
+
+        /* PDF Library Enhancements */
+        .pdf-library-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+        }
+
+        .pdf-library-container {
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .library-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-300);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .tab-btn {
+            background: rgba(33, 133, 208, 0.1);
+            border: 1px solid rgba(33, 133, 208, 0.2);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--primary-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            box-shadow: var(--glow-primary);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(33, 133, 208, 0.15);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tab-content {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .pdf-document-card {
+            background: var(--bg-card) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(33, 133, 208, 0.2) !important;
+            border-radius: var(--radius-lg) !important;
+            padding: var(--spacing-md) !important;
+            margin-bottom: var(--spacing-md) !important;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pdf-document-card:hover {
+            background: rgba(45, 55, 72, 0.95) !important;
+            border-color: var(--primary-blue) !important;
+            transform: translateX(4px);
+            box-shadow: var(--glow-primary);
+        }
+        
+        .pdf-document-card h4,
+        .pdf-document-card p,
+        .pdf-document-card div,
+        .pdf-document-card span {
+            color: var(--white) !important;
+        }
+        
+        .stat-card,
+        .stat-card h4,
+        .stat-card p,
+        .stat-card div {
+            color: var(--white) !important;
+        }
+
+        .category-tag {
+            background: var(--primary-purple) !important;
+            color: white !important;
+            padding: var(--spacing-xs) var(--spacing-sm) !important;
+            border-radius: var(--radius-full) !important;
+            font-size: 0.75rem !important;
+            font-weight: 500 !important;
+        }
+
+        /* Form Enhancements */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid rgba(33, 133, 208, 0.3);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(33, 133, 208, 0.1);
+            background: var(--bg-card);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-400);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                max-width: 100vw;
+            }
+            
+            .hero-card {
+                text-align: center;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--spacing-md);
+            }
+            
+            .hero-content h1 {
+                font-size: 1.875rem;
+            }
+            
+
+        }
+
+        @media (max-width: 480px) {
+            .card-actions {
+                flex-direction: column;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #28a745;
+        }
+
+        .notification.error {
+            background-color: #dc3545;
+        }
+
+        .notification.info {
+            background-color: #17a2b8;
+        }
+
+        .tab-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--bg-card);
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .tab-btn:hover {
+            background: rgba(33, 133, 208, 0.1);
+        }
+
+        .tab-content {
+            background: var(--bg-card);
+            border: 1px solid rgba(33, 133, 208, 0.2);
+            border-radius: 0 8px 8px 8px;
+            padding: 20px;
+            color: var(--white);
+        }
+        
+        .tab-content h4,
+        .tab-content h3,
+        .tab-content p,
+        .tab-content div {
+            color: var(--white) !important;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .pdf-document-card, .search-result-card {
+            transition: transform 0.2s ease;
+        }
+
+        .pdf-document-card:hover, .search-result-card:hover {
+            transform: translateX(5px);
+        }
+
+        .category-tag {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .similarity-score {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span style="font-size: 1.5rem;"></span>
+                <h1>AI Satış Stratejisi</h1>
+                </div>
+            
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="/create-strategy" class="nav-item">
+                    <span class="nav-icon">🧠</span>
+                    Strateji Oluştur
+                </a>
+                <a href="/view-strategy" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    Stratejiler
+                </a>
+                <a href="/performance" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    Performans
+                </a>
+                <a href="#" class="nav-item" onclick="showTechnicalInfo()">
+                    <span class="nav-icon">📚</span>
+                    Teknik Bilgiler
+                </a>
+                <a href="/settings" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Ayarlar
+                </a>
+            </nav>
+            
+            <div class="sidebar-bottom">
+                <button class="logout-btn" onclick="logout()">
+                    Çıkış
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Card -->
+            <div class="hero-card">
+                <div class="hero-content">
+                    <h1>Hoş geldiniz! 👋</h1>
+                    <p>AI Destekli Satış Stratejileri Oluşturun ve Analiz Edin</p>
+                </div>
+            </div>
+
+
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-grid">
+                <!-- Ürünleriniz -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">📦</span>
+                        <h3 class="card-title">Ürünleriniz</h3>
+                    </div>
+                    <p class="card-description">Satış stratejilerinizi oluşturmak için ürünlerinizi yönetin</p>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <span>➕</span>
+                            Ürün Ekle
+                        </button>
+                        <button class="btn btn-outline" onclick="loadProducts()">
+                            <span>🔄</span>
+                            Yenile
+                        </button>
+                    </div>
+                    
+                    <div id="productsList" class="products-list"></div>
+                </div>
+
+                <!-- Stratejileriniz -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">🧠</span>
+                        <h3 class="card-title">Stratejileriniz</h3>
+                    </div>
+                    <p class="card-description">AI tarafından oluşturulan satış stratejileriniz</p>
+                    
+                    <div class="card-actions">
+                        <a href="/create-strategy" class="btn btn-primary">
+                            <span>✨</span>
+                            Strateji Oluştur
+                        </a>
+                    </div>
+                    
+                    <div id="strategiesList" class="strategies-list"></div>
+                </div>
+
+                <!-- Performans Takibi - Gizli -->
+                <div class="dashboard-card" style="display: none;">
+                    <div class="card-header">
+                        <span class="card-icon">📊</span>
+                        <h3 class="card-title">Performans Takibi</h3>
+                    </div>
+                    <p class="card-description">Satış sonuçlarınızı analiz edin ve iyileştirme önerileri alın</p>
+                    
+                    <div class="card-actions">
+                        <a href="/performance" class="btn btn-primary">
+                            <span>📈</span>
+                            Performans Analizi
+                        </a>
+                    </div>
+                    
+
+                </div>
+            </div>
+            
+            <!-- PDF Strateji Kütüphanesi -->
+            <div class="pdf-library-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                    <div class="card-header">
+                        <span class="card-icon">📚</span>
+                        <h2 class="card-title" style="font-size: 1.5rem;">Strateji Kütüphanesi</h2>
+                    </div>
+                    <button class="btn btn-outline" onclick="loadPDFStats()" id="pdfStatsBtn">
+                        <span>📊</span>
+                        Kütüphane İstatistikleri
+                    </button>
+                </div>
+                
+                <div class="pdf-library-container">
+                    <div class="library-tabs">
+                        <button class="tab-btn active" onclick="switchLibraryTab('upload')" id="uploadTab">
+                            <span>📤</span>
+                            PDF Yükle
+                        </button>
+                        <button class="tab-btn" onclick="switchLibraryTab('manage')" id="manageTab">
+                            <span>📁</span>
+                            Dosyalarım
+                        </button>
+                        <button class="tab-btn" onclick="switchLibraryTab('stats')" id="statsTab">
+                            <span>📊</span>
+                            İstatistikler
+                        </button>
+                    </div>
+                    
+                    <!-- PDF Yükleme Sekmesi -->
+                    <div id="uploadTabContent" class="tab-content">
+                        <div style="background: rgba(168, 85, 247, 0.05); padding: var(--spacing-lg); border-radius: var(--radius-xl); margin-bottom: var(--spacing-lg); border: 1px solid rgba(168, 85, 247, 0.1);">
+                            <div class="card-header" style="margin-bottom: var(--spacing-md);">
+                                <span class="card-icon">📤</span>
+                                <h4 class="card-title">Strateji PDF'i Yükle</h4>
+                            </div>
+                            <p style="color: var(--gray-600); margin-bottom: var(--spacing-lg); line-height: 1.6;">
+                                Satış stratejisi içeren PDF dosyalarınızı yükleyin. AI'nız bu dokümanlardan öğrenerek daha iyi stratejiler oluşturacak.
+                            </p>
+                            
+                            <form id="pdfUploadForm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="pdfFile">PDF Dosyası:</label>
+                                    <input type="file" id="pdfFile" accept=".pdf" required 
+                                           style="border: 2px dashed var(--gray-300); background: rgba(255, 255, 255, 0.9);">
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="pdfCategory">Kategori:</label>
+                                        <select id="pdfCategory" required>
+                                            <option value="">Kategori Seçin</option>
+                                            <option value="e-ticaret">E-ticaret</option>
+                                            <option value="teknoloji">Teknoloji</option>
+                                            <option value="gida">Gıda</option>
+                                            <option value="moda">Moda</option>
+                                            <option value="saglik">Sağlık</option>
+                                            <option value="egitim">Eğitim</option>
+                                            <option value="finans">Finans</option>
+                                            <option value="otomotiv">Otomotiv</option>
+                                            <option value="emlak">Emlak</option>
+                                            <option value="diger">Diğer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="customCategory">Özel Kategori:</label>
+                                        <input type="text" id="customCategory" placeholder="Özel kategori adı...">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="pdfDescription">Açıklama (Opsiyonel):</label>
+                                    <textarea id="pdfDescription" placeholder="Bu PDF'in içeriği hakkında kısa bilgi..." 
+                                              style="height: 80px; resize: vertical;"></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary" style="width: 100%; padding: var(--spacing-md);">
+                                    <span>📤</span>
+                                    PDF Yükle ve İşle
+                                </button>
+                            </form>
+                            
+                            <div id="uploadProgress" style="display: none; margin-top: var(--spacing-lg);">
+                                <div style="background: var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; height: 8px;">
+                                    <div id="progressBar" style="background: var(--primary-purple); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                                </div>
+                                <p id="uploadStatus" style="text-align: center; margin-top: var(--spacing-sm); color: var(--gray-600); font-size: 0.875rem;"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dosya Yönetimi Sekmesi -->
+                    <div id="manageTabContent" class="tab-content" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                            <div class="card-header">
+                                <span class="card-icon">📁</span>
+                                <h4 class="card-title">Yüklediğiniz PDF Dosyaları</h4>
+                            </div>
+                            <button class="btn btn-outline" onclick="loadPDFDocuments()">
+                                <span>🔄</span>
+                                Yenile
+                            </button>
+                        </div>
+                        
+                        <div id="pdfDocumentsList"></div>
+                    </div>
+                    
+
+                    
+                    <!-- İstatistikler Sekmesi -->
+                    <div id="statsTabContent" class="tab-content" style="display: none;">
+                        <div id="pdfStatsContent"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-card); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.2); padding: var(--spacing-lg); text-align: center; color: var(--gray-500); font-size: 0.875rem;">
+            <p>&copy; 2025 AI Satış Stratejisi Projesi. Tüm hakları saklıdır.</p>
+        </footer>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);">
+        <div class="modal-content" style="background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: var(--shadow-xl);">
+            <span class="close" onclick="closeAddProductModal()" style="color: var(--gray-400); font-size: 1.5rem; position: absolute; right: var(--spacing-lg); top: var(--spacing-lg); cursor: pointer; transition: color 0.3s ease;">×</span>
+            
+            <div class="card-header" style="margin-bottom: var(--spacing-lg);">
+                <span class="card-icon">➕</span>
+                <h2 class="card-title">Yeni Ürün Ekle</h2>
+            </div>
+            
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Ürün Adı:</label>
+                    <input type="text" id="productName" name="name" required placeholder="Örn: iPhone 15 Pro">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Ürün Açıklaması:</label>
+                    <textarea id="productDescription" name="description" rows="3" required 
+                              placeholder="Ürününüzü detaylıca açıklayın..." style="resize: vertical;"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">Kategori:</label>
+                    <select id="productCategory" name="category" required>
+                        <option value="">Kategori Seçin</option>
+                        <option value="teknoloji">Teknoloji</option>
+                        <option value="gida">Gıda</option>
+                        <option value="moda">Moda</option>
+                        <option value="saglik">Sağlık</option>
+                        <option value="egitim">Eğitim</option>
+                        <option value="otomotiv">Otomotiv</option>
+                        <option value="emlak">Emlak</option>
+                        <option value="diger">Diğer</option>
+                    </select>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                    <div class="form-group" style="margin-bottom: 0;">
+                    <label for="productCostPrice">Maliyet Fiyatı (TL):</label>
+                    <input type="number" id="productCostPrice" name="cost_price" step="0.01" required 
+                           placeholder="Örn: 5000.00">
+                </div>
+                
+                    <div class="form-group" style="margin-bottom: 0;">
+                    <label for="targetMargin">Hedef Kar Marjı (%):</label>
+                    <input type="number" id="targetMargin" name="target_profit_margin" step="0.01" 
+                           placeholder="Örn: 25.00" min="0" max="100">
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: var(--spacing-sm); justify-content: flex-end; margin-top: var(--spacing-xl);">
+                    <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">İptal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span>➕</span>
+                        Ürün Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Technical Information Modal -->
+    <div id="technicalInfoModal" class="modal" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);">
+        <div class="modal-content" style="background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: var(--shadow-xl); max-width: 800px; max-height: 80vh; overflow-y: auto;">
+            <span class="close" onclick="closeTechnicalInfoModal()" style="color: var(--gray-400); font-size: 1.5rem; position: absolute; right: var(--spacing-lg); top: var(--spacing-lg); cursor: pointer; transition: color 0.3s ease;">×</span>
+            
+            <div class="card-header" style="margin-bottom: var(--spacing-lg);">
+                <span class="card-icon">📚</span>
+                <h2 class="card-title">Teknik Bilgiler</h2>
+            </div>
+            
+            <div style="color: var(--white);">
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">ROI (Return on Investment)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        ROI, yatırım getirisi anlamına gelir. Bir yatırımın ne kadar karlı olduğunu gösteren finansal bir metrik. 
+                        Formülü: (Kazanç - Yatırım) / Yatırım × 100
+                    </p>
+                    <p style="color: var(--gray-400); line-height: 1.6;">
+                        <strong>Örnek:</strong> 1000 TL yatırım yapıp 1200 TL kazanç elde ettiyseniz, ROI = (1200-1000)/1000 × 100 = %20
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Kar Marjı (Profit Margin)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Satış fiyatı ile maliyet arasındaki farkın satış fiyatına oranı. 
+                        Formülü: (Satış Fiyatı - Maliyet) / Satış Fiyatı × 100
+                    </p>
+                    <p style="color: var(--gray-400); line-height: 1.6;">
+                        <strong>Örnek:</strong> 100 TL'ye aldığınız ürünü 150 TL'ye satarsanız, kar marjı = (150-100)/150 × 100 = %33.3
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Hedef Pazar (Target Market)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Ürün veya hizmetinizin satış yapmayı hedeflediği müşteri grubu. 
+                        Yaş, cinsiyet, gelir seviyesi, yaşam tarzı gibi kriterlere göre tanımlanır.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Rekabet Analizi (Competitive Analysis)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Rakip şirketlerin güçlü ve zayıf yanlarını analiz ederek kendi stratejinizi geliştirme süreci.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Pazar Payı (Market Share)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Bir şirketin toplam pazar satışları içindeki payı. 
+                        Formülü: Şirket Satışları / Toplam Pazar Satışları × 100
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Müşteri Yaşam Boyu Değeri (Customer Lifetime Value)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Bir müşterinin şirketinizle olan tüm ilişkisi boyunca sağlayacağı toplam gelir.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Dönüşüm Oranı (Conversion Rate)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Ziyaretçilerinizin müşteriye dönüşme oranı. 
+                        Formülü: Satış Yapılan Ziyaretçi Sayısı / Toplam Ziyaretçi Sayısı × 100
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--spacing-xl);">
+                    <h3 style="color: var(--primary-blue); margin-bottom: var(--spacing-md);">Satış Hunisi (Sales Funnel)</h3>
+                    <p style="color: var(--gray-400); line-height: 1.6; margin-bottom: var(--spacing-md);">
+                        Potansiyel müşterilerin farkındalıktan satın almaya kadar geçtiği aşamaların görselleştirilmesi.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; margin-top: var(--spacing-xl);">
+                <button type="button" class="btn btn-outline" onclick="closeTechnicalInfoModal()">Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let isAdmin = false;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadUserInfo();
+            loadDashboardData();
+            
+            // PDF upload form handler
+            const pdfUploadForm = document.getElementById('pdfUploadForm');
+            if (pdfUploadForm) {
+                pdfUploadForm.addEventListener('submit', handlePDFUpload);
+            }
+            
+            // Product form handler
+            const addProductForm = document.getElementById('addProductForm');
+            if (addProductForm) {
+                addProductForm.addEventListener('submit', handleAddProduct);
+            }
+        });
+
+        // Auth functions
+        function checkAuth() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/';
+                return;
+            }
+        }
+
+        // Load user information and check admin status
+        async function loadUserInfo() {
+            try {
+                const response = await fetch('/api/v1/users/me', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    currentUser = await response.json();
+                    isAdmin = (currentUser.email === 'muhammeduygur594@hotmail.com');
+                    
+                    // Hide/show PDF library based on admin status
+                    const pdfLibrarySection = document.querySelector('.pdf-library-section');
+                    if (pdfLibrarySection) {
+                        pdfLibrarySection.style.display = isAdmin ? 'block' : 'none';
+                    }
+                } else {
+                    console.error('Failed to load user info');
+                }
+            } catch (error) {
+                console.error('Error loading user info:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('access_token');
+            window.location.href = '/';
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            await Promise.all([
+                loadProducts(),
+                loadStrategies(),
+                loadDashboardStats()
+            ]);
+        }
+
+        // Load dashboard statistics
+        async function loadDashboardStats() {
+            try {
+                // Load basic stats
+                const [productsResponse, strategiesResponse, pdfStatsResponse] = await Promise.all([
+                    fetch('/api/v1/products/', {
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+                    }),
+                    fetch('/api/v1/strategies/', {
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+                    }),
+                    fetch('/api/v1/pdf/stats/overview', {
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+                    })
+                ]);
+
+                const products = productsResponse.ok ? await productsResponse.json() : [];
+                const strategies = strategiesResponse.ok ? await strategiesResponse.json() : [];
+                const pdfStats = pdfStatsResponse.ok ? await pdfStatsResponse.json() : { total_documents: 0 };
+
+                // Calculate average ROI
+                const avgROI = strategies.length > 0 
+                    ? (strategies.reduce((sum, s) => sum + (s.expected_roi || 0), 0) / strategies.length).toFixed(1)
+                    : 0;
+
+                // Stats removed - no longer updating DOM elements
+
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+            }
+        }
+
+        // Products management
+        async function loadProducts() {
+            const productsList = document.getElementById('productsList');
+            
+            try {
+                const response = await fetch('/api/v1/products/', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const products = await response.json();
+                    displayProducts(products);
+                } else {
+                    productsList.innerHTML = '<div class="message error">Ürünler yüklenirken hata oluştu</div>';
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+                productsList.innerHTML = '<div class="message error">Ürünler yüklenirken hata oluştu</div>';
+            }
+        }
+
+        function displayProducts(products) {
+            const productsList = document.getElementById('productsList');
+            
+            if (products.length === 0) {
+                productsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <p>Henüz ürün eklenmemiş</p>
+                        <button class="btn" onclick="showAddProductModal()">İlk Ürünü Ekle</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const productsHTML = products.map(product => `
+                <div class="product-item">
+                    <div class="item-info">
+                        <h4>${product.name}</h4>
+                        <p>${product.category} • ₺${product.cost_price}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-small" onclick="createStrategyForProduct(${product.id})">
+                            Strateji Oluştur
+                        </button>
+                        <button class="btn btn-small btn-danger" onclick="deleteProduct(${product.id})">
+                            Sil
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            productsList.innerHTML = productsHTML;
+        }
+
+        // Product modal functions
+        function showAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'block';
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+            document.getElementById('addProductForm').reset();
+        }
+
+        // Technical information modal functions
+        function showTechnicalInfo() {
+            document.getElementById('technicalInfoModal').style.display = 'block';
+        }
+
+        function closeTechnicalInfoModal() {
+            document.getElementById('technicalInfoModal').style.display = 'none';
+        }
+
+        async function handleAddProduct(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const productData = {
+                name: formData.get('name'),
+                description: formData.get('description'),
+                category: formData.get('category'),
+                cost_price: parseFloat(formData.get('cost_price')),
+                target_profit_margin: formData.get('target_profit_margin') ? parseFloat(formData.get('target_profit_margin')) / 100 : null
+            };
+            
+            try {
+                const response = await fetch('/api/v1/products/', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                if (response.ok) {
+                    const newProduct = await response.json();
+                    showNotification('Ürün başarıyla eklendi', 'success');
+                    closeAddProductModal();
+                    loadProducts();
+                    loadDashboardStats();
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Ürün eklenirken hata oluştu', 'error');
+                }
+            } catch (error) {
+                console.error('Error adding product:', error);
+                showNotification('Ürün eklenirken hata oluştu', 'error');
+            }
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('Bu ürünü silmek istediğinizden emin misiniz?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/v1/products/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    showNotification('Ürün silindi', 'success');
+                    loadProducts();
+                    loadDashboardStats();
+                } else {
+                    showNotification('Ürün silinirken hata oluştu', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                showNotification('Ürün silinirken hata oluştu', 'error');
+            }
+        }
+
+        function createStrategyForProduct(productId) {
+            window.location.href = `/create-strategy?product_id=${productId}`;
+        }
+
+        // Strategies management
+        async function loadStrategies() {
+            const strategiesList = document.getElementById('strategiesList');
+            
+            try {
+                const response = await fetch('/api/v1/strategies/', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const strategies = await response.json();
+                    displayStrategies(strategies);
+                } else {
+                    strategiesList.innerHTML = '<div class="message error">Stratejiler yüklenirken hata oluştu</div>';
+                }
+            } catch (error) {
+                console.error('Error loading strategies:', error);
+                strategiesList.innerHTML = '<div class="message error">Stratejiler yüklenirken hata oluştu</div>';
+            }
+        }
+
+        function displayStrategies(strategies) {
+            const strategiesList = document.getElementById('strategiesList');
+            
+            if (strategies.length === 0) {
+                strategiesList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🧠</div>
+                        <p>Henüz strateji oluşturulmamış</p>
+                        <a href="/create-strategy" class="btn">İlk Stratejiyi Oluştur</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const strategiesHTML = strategies.slice(0, 5).map(strategy => `
+                <div class="strategy-item">
+                    <div class="item-info">
+                        <h4>${strategy.title}</h4>
+                        <p>ROI: ${strategy.expected_roi}% • ${new Date(strategy.created_at).toLocaleDateString('tr-TR')}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-small" onclick="viewStrategy(${strategy.id})">
+                            Görüntüle
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            strategiesList.innerHTML = strategiesHTML + 
+                (strategies.length > 5 ? `<div style="text-align: center; margin-top: 15px;"><a href="/view-strategy" class="btn btn-outline">Tümünü Gör</a></div>` : '');
+        }
+
+        function viewStrategy(strategyId) {
+            window.location.href = `/view-strategy?strategy_id=${strategyId}`;
+        }
+
+        // ==================== PDF Library Functions ====================
+
+        // PDF Library Tab switching
+        function switchLibraryTab(tabName) {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu bölüm sadece admin kullanıcılar tarafından erişilebilir', 'error');
+                return;
+            }
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+            document.getElementById(tabName + 'TabContent').style.display = 'block';
+            
+            // Load content based on tab
+            if (tabName === 'manage') {
+                loadPDFDocuments();
+            } else if (tabName === 'stats') {
+                loadPDFStats();
+            }
+        }
+
+        // PDF Upload Form Handler
+        async function handlePDFUpload(event) {
+            event.preventDefault();
+            
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            const fileInput = document.getElementById('pdfFile');
+            const categorySelect = document.getElementById('pdfCategory');
+            const customCategory = document.getElementById('customCategory');
+            const description = document.getElementById('pdfDescription');
+            
+            const file = fileInput.files[0];
+            if (!file) {
+                showNotification('Lütfen bir PDF dosyası seçin', 'error');
+                return;
+            }
+            
+            const category = customCategory.value.trim() || categorySelect.value;
+            if (!category) {
+                showNotification('Lütfen bir kategori seçin veya girin', 'error');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('category', category);
+            formData.append('description', description.value);
+            
+            // Show progress
+            showUploadProgress(true);
+            updateUploadProgress(0, 'Dosya yükleniyor...');
+            
+            try {
+                const response = await fetch('/api/v1/pdf/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    },
+                    body: formData
+                });
+                
+                updateUploadProgress(50, 'Dosya işleniyor...');
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    updateUploadProgress(100, 'Başarıyla tamamlandı!');
+                    
+                    showNotification(result.message, 'success');
+                    document.getElementById('pdfUploadForm').reset();
+                    
+                    setTimeout(() => {
+                        showUploadProgress(false);
+                        switchLibraryTab('manage'); // Dosyalarım sekmesine geç
+                        loadDashboardStats(); // Dashboard stats'ı güncelle
+                    }, 2000);
+                } else {
+                    const error = await response.json();
+                    updateUploadProgress(0, 'Hata oluştu!');
+                    showNotification(error.detail || 'Yükleme hatası', 'error');
+                }
+            } catch (error) {
+                console.error('PDF upload error:', error);
+                updateUploadProgress(0, 'Hata oluştu!');
+                showNotification('Dosya yüklenirken hata oluştu', 'error');
+            }
+        }
+
+        function showUploadProgress(show) {
+            const progressDiv = document.getElementById('uploadProgress');
+            progressDiv.style.display = show ? 'block' : 'none';
+        }
+
+        function updateUploadProgress(percent, status) {
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('uploadStatus');
+            
+            progressBar.style.width = percent + '%';
+            statusText.textContent = status;
+        }
+
+        // Load PDF Documents
+        async function loadPDFDocuments() {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            const listContainer = document.getElementById('pdfDocumentsList');
+            
+            // Show loading
+            listContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>📚 PDF dokümanlar yükleniyor...</p>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch('/api/v1/pdf/list', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const documents = await response.json();
+                    displayPDFDocuments(documents);
+                } else {
+                    const error = await response.json();
+                    listContainer.innerHTML = `
+                        <div class="message error">
+                            ❌ Dokümanlar yüklenirken hata: ${error.detail || 'Bilinmeyen hata'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('PDF documents loading error:', error);
+                listContainer.innerHTML = `
+                    <div class="message error">
+                        ❌ Dokümanlar yüklenirken hata oluştu
+                    </div>
+                `;
+            }
+        }
+
+        function displayPDFDocuments(documents) {
+            const listContainer = document.getElementById('pdfDocumentsList');
+            
+            if (documents.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="message info">
+                        📚 Henüz PDF doküman yüklenmemiş. 
+                        <button class="btn" onclick="switchLibraryTab('upload')">PDF Yükle</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const documentsHTML = documents.map(doc => `
+                                        <div class="pdf-document-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 8px 0; color: var(--white);">📄 ${doc.original_filename}</h4>
+                            <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                                <span class="category-tag" style="background: #667eea; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">
+                                    ${doc.category}
+                                </span>
+                                <span style="color: #666; font-size: 0.9rem;">
+                                    ${(doc.file_size / 1024).toFixed(1)} KB
+                                </span>
+                                <span style="color: #666; font-size: 0.9rem;">
+                                    ${doc.chunk_count} chunk
+                                </span>
+                            </div>
+                            ${doc.description ? `<p style="margin: 0; color: #666; font-size: 0.9rem;">${doc.description}</p>` : ''}
+                            <div style="margin-top: 8px; font-size: 0.85rem; color: #999;">
+                                Yüklendi: ${new Date(doc.uploaded_at).toLocaleDateString('tr-TR')}
+                                ${doc.embedded_at ? `• Embed edildi: ${new Date(doc.embedded_at).toLocaleDateString('tr-TR')}` : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            ${!doc.is_embedded ? `
+                                <button class="btn btn-outline" onclick="embedPDFDocument(${doc.id})" style="font-size: 0.8rem;">
+                                    📥 Vector DB'ye Ekle
+                                </button>
+                            ` : `
+                                <span style="color: #28a745; font-size: 0.8rem;">✅ Embedded</span>
+                            `}
+                            <button class="btn btn-danger" onclick="deletePDFDocument(${doc.id})" style="font-size: 0.8rem; background: #dc3545;">
+                                🗑️ Sil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            listContainer.innerHTML = documentsHTML;
+        }
+
+        // Embed PDF Document
+        async function embedPDFDocument(pdfId) {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/v1/pdf/${pdfId}/embed`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification(result.message, 'success');
+                    loadPDFDocuments(); // Refresh list
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Embedding hatası', 'error');
+                }
+            } catch (error) {
+                console.error('PDF embed error:', error);
+                showNotification('Embedding sırasında hata oluştu', 'error');
+            }
+        }
+
+        // Delete PDF Document
+        async function deletePDFDocument(pdfId) {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            if (!confirm('Bu PDF dokümanı silmek istediğinizden emin misiniz?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/v1/pdf/${pdfId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification(result.message, 'success');
+                    loadPDFDocuments(); // Refresh list
+                    loadDashboardStats(); // Refresh dashboard stats
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Silme hatası', 'error');
+                }
+            } catch (error) {
+                console.error('PDF delete error:', error);
+                showNotification('Silme sırasında hata oluştu', 'error');
+            }
+        }
+
+
+
+
+
+
+
+        // Load PDF Stats
+        async function loadPDFStats() {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            const statsContainer = document.getElementById('pdfStatsContent');
+            
+            // Show loading
+            statsContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>📊 İstatistikler yükleniyor...</p>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch('/api/v1/pdf/stats/overview', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    displayPDFStats(stats);
+                } else {
+                    const error = await response.json();
+                    statsContainer.innerHTML = `
+                        <div class="message error">
+                            ❌ İstatistikler yüklenirken hata: ${error.detail || 'Bilinmeyen hata'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('PDF stats loading error:', error);
+                statsContainer.innerHTML = `
+                    <div class="message error">
+                        ❌ İstatistikler yüklenirken hata oluştu
+                    </div>
+                `;
+            }
+        }
+
+        function displayPDFStats(stats) {
+            const statsContainer = document.getElementById('pdfStatsContent');
+            
+            const categoriesHTML = stats.categories.map(cat => `
+                <span style="background: #e9ecef; padding: 4px 8px; border-radius: 12px; font-size: 0.9rem; margin-right: 8px; margin-bottom: 5px; display: inline-block;">
+                    ${cat}
+                </span>
+            `).join('');
+            
+            statsContainer.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="stat-card" style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 2rem; color: #667eea; margin-bottom: 8px;">📚</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--white);">${stats.total_documents}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Toplam PDF</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 2rem; color: #28a745; margin-bottom: 8px;">📄</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--white);">${stats.total_chunks}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Toplam Chunk</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 2rem; color: #ffc107; margin-bottom: 8px;">🎯</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--white);">${stats.embedded_chunks}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Vector DB'de</div>
+                    </div>
+                    
+                    <div class="stat-card" style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm); text-align: center;">
+                        <div style="font-size: 2rem; color: #dc3545; margin-bottom: 8px;">💾</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--white);">${stats.total_size_mb} MB</div>
+                        <div style="color: #666; font-size: 0.9rem;">Toplam Boyut</div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm); margin-bottom: 20px;">
+                    <h4 style="color: var(--white); margin-bottom: 15px;">📊 İşleme Durumu</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #28a745;">${stats.processing_status.processed}</div>
+                            <div style="color: #666; font-size: 0.9rem;">İşlendi</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #ffc107;">${stats.processing_status.pending}</div>
+                            <div style="color: #666; font-size: 0.9rem;">Bekliyor</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${stats.processing_status.embedding_progress}</div>
+                            <div style="color: #666; font-size: 0.9rem;">Embedding İlerlemesi</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid rgba(33, 133, 208, 0.2); box-shadow: var(--shadow-sm);">
+                    <h4 style="color: var(--white); margin-bottom: 15px;">🏷️ Kategoriler</h4>
+                    <div>
+                        ${categoriesHTML || '<span style="color: #666;">Henüz kategori bulunmuyor</span>'}
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn" onclick="embedAllPDFs()" style="margin-right: 10px;">
+                        📥 Tüm PDF'leri Vector DB'ye Ekle
+                    </button>
+                    <button class="btn btn-outline" onclick="loadPDFStats()">
+                        🔄 İstatistikleri Yenile
+                    </button>
+                </div>
+            `;
+        }
+
+        // Embed All PDFs
+        async function embedAllPDFs() {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/v1/pdf/embed-all', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification(result.message, 'success');
+                    setTimeout(() => {
+                        loadPDFStats(); // Refresh stats
+                        loadDashboardStats(); // Refresh dashboard stats
+                    }, 2000);
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Toplu embedding hatası', 'error');
+                }
+            } catch (error) {
+                console.error('Batch embed error:', error);
+                showNotification('Toplu embedding sırasında hata oluştu', 'error');
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Modal close on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('addProductModal');
+            if (event.target === modal) {
+                closeAddProductModal();
+            }
+            
+            const technicalModal = document.getElementById('technicalInfoModal');
+            if (event.target === technicalModal) {
+                closeTechnicalInfoModal();
+            }
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+                // Clear authentication token
+                localStorage.removeItem('access_token');
+                
+                // Show notification
+                showNotification('Çıkış yapılıyor...', 'info');
+                
+                // Redirect to login page after a brief delay
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>

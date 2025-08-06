@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stratejiler - AI Satış Stratejisi Projesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        :root {
+            /* Semantic UI Teknolojik Design System */
+            --primary-blue: #2185d0;
+            --primary-blue-light: #54c8ff;
+            --primary-blue-dark: #1678c2;
+            --secondary-violet: #6435c9;
+            --secondary-violet-light: #a333c8;
+            --secondary-violet-dark: #5829bb;
+            --accent-teal: #00b5ad;
+            --accent-green: #21ba45;
+            
+            /* Teknolojik Neutral Colors */
+            --white: #ffffff;
+            --gray-light: #1e1e1e;
+            --gray-100: #2d3748;
+            --gray-200: #4a5568;
+            --gray-300: #718096;
+            --gray-400: #a0aec0;
+            --gray-500: #cbd5e0;
+            --gray-600: #e2e8f0;
+            --gray-700: #edf2f7;
+            --gray-800: #f7fafc;
+            --gray-900: #ffffff;
+            
+            /* Background Colors - Dark Tech Theme */
+            --bg-primary: #1a1a1a;
+            --bg-card: rgba(45, 55, 72, 0.9);
+            --bg-sidebar-active: rgba(33, 133, 208, 0.2);
+            --bg-hero-gradient: linear-gradient(135deg, #2185d0 0%, #6435c9 100%);
+            
+            /* Status Colors - Semantic UI */
+            --success: #21ba45;
+            --warning: #fbbd08;
+            --error: #db2828;
+            --info: #2185d0;
+            
+            /* Typography */
+            --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-headings: 'Inter', system-ui, sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Teknolojik Glow Shadows */
+            --shadow-sm: 0 1px 3px 0 rgba(33, 133, 208, 0.1);
+            --shadow-base: 0 1px 3px 0 rgba(33, 133, 208, 0.15), 0 1px 2px 0 rgba(33, 133, 208, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(33, 133, 208, 0.2), 0 2px 4px -1px rgba(33, 133, 208, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(33, 133, 208, 0.25), 0 4px 6px -2px rgba(33, 133, 208, 0.15);
+            --shadow-xl: 0 20px 25px -5px rgba(33, 133, 208, 0.3), 0 10px 10px -5px rgba(33, 133, 208, 0.2);
+            --shadow-card: 0 8px 32px rgba(33, 133, 208, 0.15);
+            
+            /* Glow Effects */
+            --glow-primary: 0 0 20px rgba(33, 133, 208, 0.4);
+            --glow-secondary: 0 0 15px rgba(100, 53, 201, 0.3);
+            --glow-accent: 0 0 15px rgba(0, 181, 173, 0.3);
+            
+            /* Teknolojik Accent Colors */
+            --tech-cyan: #00d4aa;
+            --tech-orange: #f2711c;
+            --tech-pink: #e03997;
+            --tech-yellow: #fbbd08;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .strategy-container {
+            padding: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Strategies List Styles */
+        .strategies-list-view {
+            display: block;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            font-family: var(--font-headings);
+        }
+
+        .page-title .icon {
+            font-size: 2rem;
+        }
+
+        .strategies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .strategy-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .strategy-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-family: var(--font-headings);
+            flex: 1;
+            margin-right: var(--spacing-md);
+        }
+
+        .strategy-date {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        .strategy-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .meta-item {
+            text-align: center;
+            padding: var(--spacing-sm);
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .meta-item .label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .meta-item .value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        .strategy-preview {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-lg);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .strategy-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-purple-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--primary-purple);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: var(--primary-purple);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--gray-500);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.7;
+        }
+
+        .empty-state h3 {
+            margin-bottom: var(--spacing-md);
+            color: var(--gray-700);
+        }
+
+        .empty-state p {
+            margin-bottom: var(--spacing-lg);
+            font-size: 1rem;
+        }
+
+        /* Single Strategy View Styles */
+        .strategy-detail-view {
+            display: none;
+        }
+        
+        .strategy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .strategy-meta {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+        }
+        
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-md);
+        }
+        
+        .detail-meta-item {
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            text-align: center;
+            border: 1px solid rgba(168, 85, 247, 0.1);
+        }
+        
+        .detail-meta-item h5 {
+            margin: 0 0 var(--spacing-sm) 0;
+            color: var(--gray-500);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        .detail-meta-item p {
+            margin: 0;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .strategy-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .strategy-content h1 {
+            margin-top: 0;
+            color: var(--gray-800);
+            border-bottom: 3px solid var(--primary-purple);
+            padding-bottom: var(--spacing-md);
+            font-family: var(--font-headings);
+        }
+        
+        .strategy-text {
+            line-height: 1.8;
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+        
+        .strategy-text h2 {
+            color: var(--primary-purple);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-headings);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-purple-light);
+            padding-bottom: var(--spacing-sm);
+        }
+        
+        .strategy-text h3 {
+            color: var(--primary-purple-dark);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-headings);
+            font-size: 1.25rem;
+        }
+        
+        .strategy-text h4 {
+            color: var(--primary-purple);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-headings);
+            font-size: 1.1rem;
+        }
+        
+        .strategy-text p {
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+        
+        .strategy-text ul {
+            padding-left: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .strategy-text li {
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.6;
+        }
+        
+        .strategy-text strong {
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+        
+        .strategy-text em {
+            color: var(--primary-purple-dark);
+            font-style: italic;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: var(--spacing-xl);
+        }
+        
+        .btn-back {
+            background: var(--gray-500);
+            color: white;
+            text-decoration: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            background: var(--gray-600);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+
+        
+        .btn-export {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-export:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--gray-500);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .loading .spinner {
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--primary-purple);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-lg);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+            text-align: center;
+        }
+        
+        .confidence-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--error) 0%, var(--warning) 50%, var(--success) 100%);
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .strategy-container {
+                padding: var(--spacing-md);
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .strategies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .strategy-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="strategy-container">
+        <!-- Loading Container -->
+        <div id="loadingContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Yükleniyor...</p>
+            </div>
+        </div>
+
+        <!-- Strategies List View -->
+        <div id="strategiesListContainer" class="strategies-list-view" style="display: none;">
+            <div class="page-header">
+                <div class="page-title">
+                    <span class="icon">📋</span>
+                    <h1>Stratejileriniz</h1>
+                </div>
+                <div style="display: flex; gap: var(--spacing-md);">
+                    <a href="/create-strategy" class="btn btn-primary">
+                        <span>✨</span>
+                        Yeni Strateji
+                    </a>
+                    <a href="/dashboard" class="btn btn-outline">
+                        <span>←</span>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <div id="strategiesGrid" class="strategies-grid">
+                <!-- Strategies will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Single Strategy Detail View -->
+        <div id="strategyDetailContainer" class="strategy-detail-view" style="display: none;">
+            <div class="strategy-header">
+                <h1 id="strategyTitle">Strateji Detayları</h1>
+                <a href="javascript:history.back()" class="btn-back">
+                    <span>←</span>
+                    Geri Dön
+                </a>
+            </div>
+
+            <div class="strategy-meta">
+                <h3 style="margin-bottom: var(--spacing-md); color: var(--gray-700);">📊 Strateji Özellikleri</h3>
+                <div class="meta-grid">
+                    <div class="detail-meta-item">
+                        <h5>Oluşturma Tarihi</h5>
+                        <p id="createdDate">-</p>
+                    </div>
+                    <div class="detail-meta-item">
+                        <h5>Güven Skoru</h5>
+                        <p id="confidenceScore">-</p>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                    </div>
+                    <div class="detail-meta-item">
+                        <h5>Beklenen ROI</h5>
+                        <p id="expectedROI">-</p>
+                    </div>
+                    <div class="detail-meta-item">
+                        <h5>Uygulama Zorluğu</h5>
+                        <p id="implementationDifficulty">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-content">
+                <h1 id="strategyContentTitle">Strateji İçeriği</h1>
+                <div class="strategy-text" id="strategyText">
+                    <!-- Strateji içeriği buraya gelecek -->
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-export" onclick="exportStrategy()">
+                    <span>📄</span>
+                    PDF'e Aktar
+                </button>
+                <button class="btn btn-danger" onclick="deleteStrategy()">
+                    <span>🗑️</span>
+                    Sil
+                </button>
+            </div>
+        </div>
+
+        <!-- Error Container -->
+        <div id="errorContainer" style="display: none;">
+            <div class="error-message">
+                <h3>❌ Hata Oluştu</h3>
+                <p id="errorMessage">Bir hata oluştu.</p>
+                <button class="btn btn-primary" onclick="retryLoad()">
+                    <span>🔄</span>
+                    Tekrar Dene
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStrategy = null;
+        let strategyId = null;
+        let strategies = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/';
+                return;
+            }
+            
+            // URL'den strategy ID'yi al
+            const urlParams = new URLSearchParams(window.location.search);
+            strategyId = urlParams.get('strategy_id');
+            
+            if (strategyId) {
+                // Tek strateji detayını yükle
+                loadStrategy(strategyId);
+            } else {
+                // Tüm stratejileri listele
+                loadAllStrategies();
+            }
+        });
+
+        // Load all strategies for list view
+        async function loadAllStrategies() {
+            try {
+                const response = await fetch('/api/v1/strategies/', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    strategies = await response.json();
+                    displayStrategiesList(strategies);
+                } else if (response.status === 401) {
+                    showError('Oturum süreniz dolmuş. Giriş sayfasına yönlendiriliyorsunuz...');
+                    setTimeout(() => {
+                        localStorage.removeItem('access_token');
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    showError('Stratejiler yüklenirken hata oluştu');
+                }
+            } catch (error) {
+                console.error('Error loading strategies:', error);
+                showError('Stratejiler yüklenirken hata oluştu');
+            }
+        }
+
+        function displayStrategiesList(strategies) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('strategiesListContainer').style.display = 'block';
+            
+            const strategiesGrid = document.getElementById('strategiesGrid');
+            
+            if (strategies.length === 0) {
+                strategiesGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🧠</div>
+                        <h3>Henüz strateji oluşturulmamış</h3>
+                        <p>AI destekli satış stratejileri oluşturmaya başlayın</p>
+                        <a href="/create-strategy" class="btn btn-primary">
+                            <span>✨</span>
+                            İlk Stratejiyi Oluştur
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+            
+            const strategiesHTML = strategies.map(strategy => {
+                const createdDate = new Date(strategy.created_at).toLocaleDateString('tr-TR');
+                const roiPercent = Math.round((strategy.expected_roi || 0.15) * 100);
+                const confidencePercent = Math.round((strategy.confidence_score || 0.8) * 100);
+                
+                // Extract first paragraph or first 150 characters as preview
+                let preview = '';
+                if (strategy.content) {
+                    // Markdown formatından temiz metin çıkar
+                    let cleanText = strategy.content
+                        .replace(/^#{1,6}\s+/gm, '') // Başlık işaretlerini kaldır
+                        .replace(/\*\*(.+?)\*\*/g, '$1') // Kalın yazı işaretlerini kaldır
+                        .replace(/\*(.+?)\*/g, '$1') // İtalik işaretlerini kaldır
+                        .replace(/^\* /gm, '• ') // Liste işaretlerini bullet ile değiştir
+                        .replace(/^- /gm, '• ') // Liste işaretlerini bullet ile değiştir
+                        .replace(/\n+/g, ' ') // Birden fazla satır sonunu tek boşlukla değiştir
+                        .trim();
+                    
+                    preview = cleanText.length > 150 ? cleanText.substring(0, 150) + '...' : cleanText;
+                }
+                
+                const difficultyMap = {
+                    'easy': 'Kolay',
+                    'medium': 'Orta', 
+                    'hard': 'Zor'
+                };
+                
+                return `
+                    <div class="strategy-card">
+                        <div class="strategy-card-header">
+                            <h3 class="strategy-title">${strategy.title || 'Satış Stratejisi'}</h3>
+                            <span class="strategy-date">${createdDate}</span>
+                        </div>
+                        
+                        <div class="strategy-meta">
+                            <div class="meta-item">
+                                <div class="label">ROI</div>
+                                <div class="value">%${roiPercent}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="label">Güven</div>
+                                <div class="value">%${confidencePercent}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="label">Zorluk</div>
+                                <div class="value">${difficultyMap[strategy.implementation_difficulty] || 'Orta'}</div>
+                            </div>
+                        </div>
+                        
+                        ${preview ? `<div class="strategy-preview">${preview}</div>` : ''}
+                        
+                        <div class="strategy-actions">
+                            <button class="btn btn-primary" onclick="viewStrategyDetail(${strategy.id})">
+                                <span>👁️</span>
+                                Görüntüle
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteStrategyFromList(${strategy.id})">
+                                <span>🗑️</span>
+                                Sil
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            strategiesGrid.innerHTML = strategiesHTML;
+        }
+
+        function viewStrategyDetail(id) {
+            window.location.href = `/view-strategy?strategy_id=${id}`;
+        }
+
+
+
+        async function deleteStrategyFromList(id) {
+            const strategy = strategies.find(s => s.id === id);
+            if (!strategy) return;
+            
+            const confirmed = confirm(`"${strategy.title || 'Bu strateji'}" silinecek. Emin misiniz?`);
+            if (!confirmed) return;
+            
+            try {
+                const response = await fetch(`/api/v1/strategies/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    showNotification('Strateji başarıyla silindi', 'success');
+                    // Remove from local array and refresh display
+                    strategies = strategies.filter(s => s.id !== id);
+                    displayStrategiesList(strategies);
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Strateji silinirken hata oluştu', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting strategy:', error);
+                showNotification('Strateji silinirken hata oluştu', 'error');
+            }
+        }
+        
+        async function loadStrategy(id) {
+            try {
+                const response = await fetch(`/api/v1/strategies/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    currentStrategy = await response.json();
+                    displayStrategy(currentStrategy);
+                } else if (response.status === 401) {
+                    showError('Oturum süreniz dolmuş. Giriş sayfasına yönlendiriliyorsunuz...');
+                    setTimeout(() => {
+                        localStorage.removeItem('access_token');
+                        window.location.href = '/';
+                    }, 2000);
+                } else if (response.status === 404) {
+                    showError('Strateji bulunamadı');
+                } else if (response.status === 422) {
+                    showError('Geçersiz strateji ID\'si');
+                } else {
+                    showError('Strateji yüklenirken hata oluştu');
+                }
+            } catch (error) {
+                console.error('Error loading strategy:', error);
+                showError('Strateji yüklenirken hata oluştu');
+            }
+        }
+        
+        function displayStrategy(strategy) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('strategyDetailContainer').style.display = 'block';
+            
+            // Başlık
+            document.getElementById('strategyTitle').textContent = strategy.title || 'Satış Stratejisi';
+            document.getElementById('strategyContentTitle').textContent = strategy.title || 'Satış Stratejisi';
+            
+            // Meta bilgiler
+            const createdDate = new Date(strategy.created_at).toLocaleDateString('tr-TR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('createdDate').textContent = createdDate;
+            
+            // Güven skoru
+            const confidencePercent = Math.round((strategy.confidence_score || 0.8) * 100);
+            document.getElementById('confidenceScore').textContent = `%${confidencePercent}`;
+            document.getElementById('confidenceFill').style.width = `${confidencePercent}%`;
+            
+            // ROI
+            const roiPercent = Math.round((strategy.expected_roi || 0.15) * 100);
+            document.getElementById('expectedROI').textContent = `%${roiPercent}`;
+            
+            // Uygulama zorluğu
+            const difficultyMap = {
+                'easy': 'Kolay',
+                'medium': 'Orta',
+                'hard': 'Zor'
+            };
+            document.getElementById('implementationDifficulty').textContent = 
+                difficultyMap[strategy.implementation_difficulty] || 'Orta';
+            
+            // Strateji içeriği - Markdown formatını HTML'e çevir
+            const formattedContent = formatStrategyContent(strategy.content || 'Strateji içeriği bulunamadı.');
+            document.getElementById('strategyText').innerHTML = formattedContent;
+        }
+
+        function formatStrategyContent(content) {
+            if (!content) return 'Strateji içeriği bulunamadı.';
+            
+            // Basit markdown-to-HTML dönüşümü
+            let formatted = content
+                // Başlıklar
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
+                .replace(/^\*\*(.+)\*\*$/gm, '<h3>$1</h3>')
+                
+                // Kalın yazı
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                
+                // İtalik yazı
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                
+                // Liste öğeleri
+                .replace(/^\* (.+)$/gm, '<li>$1</li>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                
+                // Paragraflar için satır sonları
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>');
+            
+            // Liste gruplarını <ul> ile sar
+            formatted = formatted.replace(/(<li>.*<\/li>)/gs, function(match) {
+                return '<ul>' + match + '</ul>';
+            });
+            
+            // Paragraf etiketleri ekle
+            if (!formatted.startsWith('<h') && !formatted.startsWith('<ul')) {
+                formatted = '<p>' + formatted;
+            }
+            if (!formatted.endsWith('</h2>') && !formatted.endsWith('</h3>') && !formatted.endsWith('</ul>')) {
+                formatted = formatted + '</p>';
+            }
+            
+            // Fazla <p> etiketlerini temizle
+            formatted = formatted
+                .replace(/<p><\/p>/g, '')
+                .replace(/<p>(<h[234]>)/g, '$1')
+                .replace(/(<\/h[234]>)<\/p>/g, '$1')
+                .replace(/<p>(<ul>)/g, '$1')
+                .replace(/(<\/ul>)<\/p>/g, '$1');
+            
+            return formatted;
+        }
+        
+        async function deleteStrategy() {
+            if (!currentStrategy || !strategyId) return;
+            
+            const confirmed = confirm('Bu stratejiyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.');
+            if (!confirmed) return;
+            
+            try {
+                const response = await fetch(`/api/v1/strategies/${strategyId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    showNotification('Strateji başarıyla silindi', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 2000);
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'Strateji silinirken hata oluştu', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting strategy:', error);
+                showNotification('Strateji silinirken hata oluştu', 'error');
+            }
+        }
+        
+        function exportStrategy() {
+            if (!currentStrategy) return;
+            
+            // PDF export özelliği (basit HTML yazdırma)
+            const printWindow = window.open('', '_blank');
+            const printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${currentStrategy.title || 'Satış Stratejisi'}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                        h1 { color: #2c3e50; border-bottom: 3px solid #667eea; padding-bottom: 15px; }
+                        h4 { color: #667eea; margin-top: 25px; }
+                        ul { padding-left: 25px; }
+                        li { margin-bottom: 8px; }
+                        .meta { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="meta">
+                        <h3>Strateji Bilgileri</h3>
+                        <p><strong>Oluşturma Tarihi:</strong> ${new Date(currentStrategy.created_at).toLocaleDateString('tr-TR')}</p>
+                        <p><strong>Güven Skoru:</strong> %${Math.round((currentStrategy.confidence_score || 0.8) * 100)}</p>
+                        <p><strong>Beklenen ROI:</strong> %${Math.round((currentStrategy.expected_roi || 0.15) * 100)}</p>
+                    </div>
+                    <h1>${currentStrategy.title || 'Satış Stratejisi'}</h1>
+                    ${currentStrategy.content || 'Strateji içeriği bulunamadı.'}
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+        
+        function retryLoad() {
+            document.getElementById('errorContainer').style.display = 'none';
+            document.getElementById('loadingContainer').style.display = 'block';
+            
+            if (strategyId) {
+                loadStrategy(strategyId);
+            } else {
+                loadAllStrategies();
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('strategiesListContainer').style.display = 'none';
+            document.getElementById('strategyDetailContainer').style.display = 'none';
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorContainer').style.display = 'block';
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                max-width: 300px;
+            `;
+            
+            switch(type) {
+                case 'success':
+                    notification.style.background = '#27ae60';
+                    break;
+                case 'error':
+                    notification.style.background = '#e74c3c';
+                    break;
+                case 'warning':
+                    notification.style.background = '#f39c12';
+                    break;
+                default:
+                    notification.style.background = '#3498db';
+            }
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
