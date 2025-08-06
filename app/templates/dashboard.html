@@ -1694,17 +1694,23 @@
                             ${doc.description ? `<p style="margin: 0; color: #666; font-size: 0.9rem;">${doc.description}</p>` : ''}
                             <div style="margin-top: 8px; font-size: 0.85rem; color: #999;">
                                 Yüklendi: ${new Date(doc.uploaded_at).toLocaleDateString('tr-TR')}
+                                ${doc.is_processed ? `• İşlendi: ${new Date(doc.processed_at).toLocaleDateString('tr-TR')}` : '• İşlenmedi'}
                                 ${doc.embedded_at ? `• Embed edildi: ${new Date(doc.embedded_at).toLocaleDateString('tr-TR')}` : ''}
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px;">
-                            ${!doc.is_embedded ? `
+                            ${!doc.is_processed ? `
+                                <button class="btn btn-primary" onclick="processPDFDocument(${doc.id})" style="font-size: 0.8rem;">
+                                    ⚙️ İşle
+                                </button>
+                            ` : ''}
+                            ${!doc.is_embedded && doc.is_processed ? `
                                 <button class="btn btn-outline" onclick="embedPDFDocument(${doc.id})" style="font-size: 0.8rem;">
                                     📥 Vector DB'ye Ekle
                                 </button>
-                            ` : `
+                            ` : doc.is_embedded ? `
                                 <span style="color: #28a745; font-size: 0.8rem;">✅ Embedded</span>
-                            `}
+                            ` : ''}
                             <button class="btn btn-danger" onclick="deletePDFDocument(${doc.id})" style="font-size: 0.8rem; background: #dc3545;">
                                 🗑️ Sil
                             </button>
@@ -1714,6 +1720,38 @@
             `).join('');
             
             listContainer.innerHTML = documentsHTML;
+        }
+
+        // Process PDF Document
+        async function processPDFDocument(pdfId) {
+            // Check admin permission
+            if (!isAdmin) {
+                showNotification('Bu işlem sadece admin kullanıcılar tarafından yapılabilir', 'error');
+                return;
+            }
+            
+            try {
+                showNotification('PDF işleniyor...', 'info');
+                
+                const response = await fetch(`/api/v1/pdf/${pdfId}/process`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification(result.message, 'success');
+                    loadPDFDocuments(); // Refresh list
+                } else {
+                    const error = await response.json();
+                    showNotification(error.detail || 'PDF işleme hatası', 'error');
+                }
+            } catch (error) {
+                console.error('PDF process error:', error);
+                showNotification('PDF işleme sırasında hata oluştu', 'error');
+            }
         }
 
         // Embed PDF Document
